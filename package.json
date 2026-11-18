@@ -1,0 +1,18 @@
+{
+  "name": "mala-pronta",
+  "version": "1.3.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-web.mjs",
+    "test": "node web/tests/web.test.mjs",
+    "start": "python -m http.server 4173 --directory public"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "happy-dom": "21.0.4",
+    "fake-indexeddb": "6.2.8"
+  }
+}
