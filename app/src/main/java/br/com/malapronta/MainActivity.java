@@ -72,11 +72,6 @@ public class MainActivity extends Activity {
         TextView e=text(eyebrow,11,GREEN,true); e.setLetterSpacing(.12f); add(content,e,8); add(content,text(heading,30,INK,true),8); add(content,text(sub,14,MUTED,false),22);
     }
     ImageView logo(String resource,String description){ImageView image=new ImageView(this);image.setImageResource(getResources().getIdentifier(resource,"drawable",getPackageName()));image.setContentDescription(description);image.setScaleType(ImageView.ScaleType.FIT_CENTER);image.setAdjustViewBounds(true);return image;}
-    void eventBranding(){
-        LinearLayout card=row();pad(card,12);card.setBackground(shape(Color.WHITE,18));
-        ImageView lieu=logo("lieu_square","Logo Lieu com fundo escuro");lieu.setBackground(shape(INK,12));lieu.setClipToOutline(true);card.addView(lieu,new LinearLayout.LayoutParams(dp(64),dp(64)));
-        ImageView inter=logo("inter_2026","Logo Inter Prudente 2026");LinearLayout.LayoutParams imageParams=new LinearLayout.LayoutParams(0,dp(80),1);imageParams.leftMargin=dp(16);card.addView(inter,imageParams);add(content,card,22);
-    }
     View mascot(String resource,String description,int left,int top,int right,int bottom){return new MascotView(this,resource,description,left,top,right,bottom);}
     void sportsMascots(){
         add(content,text("No clima dos jogos",19,INK,true),6);add(content,text("Os mascotes das modalidades também estão na viagem.",13,MUTED,false),14);
@@ -149,7 +144,6 @@ public class MainActivity extends Activity {
     Spinner picker(String label,String[] values,int selected) {add(content,text(label,15,INK,true),8); Spinner sp=new Spinner(this);ArrayAdapter<String> a=new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,values);sp.setAdapter(a);sp.setSelection(selected);sp.setBackground(shape(Color.WHITE,12));sp.setPadding(dp(12),dp(4),dp(12),dp(4));LinearLayout.LayoutParams p=new LinearLayout.LayoutParams(-1,dp(56));p.bottomMargin=dp(22);content.addView(sp,p);return sp;}
     void tripPage() {
         title("DO SEU JEITO", "Qual é o próximo rolê?", "Adapte sua mala para o Inter, TUSCA, jogos ou uma excursão da atlética.");
-        eventBranding();
         add(content,text("Nome da viagem",15,INK,true),8);EditText name=new EditText(this);name.setText(tripName);name.setSingleLine();name.setTextSize(16);name.setBackground(shape(Color.WHITE,12));pad(name,16);name.setFilters(new android.text.InputFilter[]{new android.text.InputFilter.LengthFilter(60)});add(content,name,22);
         Spinner duration=picker("Duração",new String[]{"2 a 3 dias","4 a 5 dias","6 a 7 dias","Mais de uma semana"},trip.days<=3?0:trip.days<=5?1:trip.days<=7?2:3);
         add(content,text("Quantidade exata de dias",15,INK,true),8);EditText days=new EditText(this);days.setInputType(2);days.setSingleLine();days.setText(""+trip.days);days.setBackground(shape(Color.WHITE,12));pad(days,16);add(content,days,22);
@@ -225,6 +219,6 @@ public class MainActivity extends Activity {
         LinearLayout cheer=row();pad(cheer,16);cheer.setBackground(shape(Color.WHITE,18));cheer.addView(mascot("mascot_thumb","Chaminha fazendo sinal de positivo",791,598,3141,3617),new LinearLayout.LayoutParams(dp(76),dp(104)));TextView greeting=text("Cuide de você e curta o rolê!",20,GREEN,true);greeting.setPadding(dp(16),0,0,0);cheer.addView(greeting,new LinearLayout.LayoutParams(0,-2,1));add(content,cheer,16);
         String[][] tips={{"01","Dois tênis, menos perrengue","Leve um que possa sujar ou molhar e outro confortável para o dia a dia."},{"02","Uma troca sempre por perto","Separe uma troca de roupa na mochila para o trajeto. Leve roupas íntimas extras."},{"03","Seu nome em tudo","Identifique carregadores, toalhas e malas. Uma etiqueta pode salvar o dia."},{"04","O essencial vai com você","Pochete ou shoulder bag facilita guardar celular, documento e dinheiro nas festas."},{"05","Cada um com seu kit","Leve seus próprios itens de higiene e deixe o que mais usa em uma nécessaire fácil de alcançar."},{"06","Água também faz parte do rolê","Cuide da hidratação em festas longas e no calor, especialmente se consumir álcool. Não misture álcool com medicamentos ou outras substâncias."},{"07","Confira antes de sair","Confirme roupa de cama, regras da hospedagem e previsão do tempo. Quantidades são sugestões: ajuste ao seu uso e à possibilidade de lavar roupas."}};
         for(String[] tip:tips){LinearLayout card=column();pad(card,20);card.setBackground(shape(Color.WHITE,18));add(card,text(tip[0]+"  /  "+tip[1],16,GREEN,true),8);add(card,text(tip[2],14,MUTED,false),0);add(content,card,12);}
-        add(content,text("Mala Pronta • versão 1.4\nSeus dados ficam neste celular. Sem conta e sem internet.",12,MUTED,false),12);
+        add(content,text("Mala Pronta • versão 1.5\nSeus dados ficam neste celular. Sem conta e sem internet.",12,MUTED,false),12);
     }
 }
