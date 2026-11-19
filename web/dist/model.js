@@ -1,4 +1,4 @@
-﻿import {categories,labels} from './data.js';
+import {categories,labels} from './data.js';
 export {categories};
 export const stays=['Alojamento universitário','Hotel','Casa alugada','Camping'];
 export const transports=['Ônibus / excursão','Carro','Avião'];
@@ -7,9 +7,10 @@ export const defaultState=()=>({name:'Minha viagem universitária',trip:{days:3,
 export function restoreState(raw){
  const fallback=defaultState();if(!raw||typeof raw!=='object')return fallback;
  const t=raw.trip||{};const number=(value,min,max,def)=>Number.isInteger(value)&&value>=min&&value<=max?value:def;
- return {name:typeof raw.name==='string'&&raw.name.trim()?raw.name.slice(0,60):fallback.name,trip:{days:number(t.days,1,60,3),stay:number(t.stay,0,3,0),transport:number(t.transport,0,2,0),activity:number(t.activity,0,3,0),personalized:t.personalized===true},checked:Array.isArray(raw.checked)?[...new Set(raw.checked.filter(x=>typeof x==='string'))]:[],custom:Array.isArray(raw.custom)?raw.custom.filter(x=>x&&typeof x.id==='string'&&x.id.startsWith('custom-')&&typeof x.label==='string'&&x.label.trim()).map(x=>({id:x.id,label:x.label.slice(0,120),category:7})):[]};
+ return {ownList:raw.ownList===true,name:typeof raw.name==='string'&&raw.name.trim()?raw.name.slice(0,60):fallback.name,trip:{days:number(t.days,1,60,3),stay:number(t.stay,0,3,0),transport:number(t.transport,0,2,0),activity:number(t.activity,0,3,0),personalized:t.personalized===true},checked:Array.isArray(raw.checked)?[...new Set(raw.checked.filter(x=>typeof x==='string'))]:[],custom:Array.isArray(raw.custom)?raw.custom.filter(x=>x&&typeof x.id==='string'&&x.id.startsWith('custom-')&&typeof x.label==='string'&&x.label.trim()).map(x=>({id:x.id,label:x.label.slice(0,120),category:number(x.category,0,7,7)})).filter((x,i,all)=>all.findIndex(y=>y.id===x.id)===i):[]};
 }
 export function generateItems(state){
+ if(state.ownList)return state.custom;
  const t=state.trip,all=[];
  labels.forEach((group,c)=>group.forEach((original,i)=>{if(t.personalized&&t.stay===1&&c===5&&i<=4)return;
  let label=original;if(t.personalized&&c===1){if(i===0)label=`Camisetas • ${t.days} unidades`;if(i===3)label=`Roupas íntimas • ${t.days+2} unidades`;if(i===4)label=`Meias • ${t.days+2} pares`;if(i===1)label=`Shorts e bermudas • ${Math.max(2,Math.ceil(t.days/2))} unidades`;}
